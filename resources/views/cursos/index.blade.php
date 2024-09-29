@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
 				<div class="flex justify-end mb-4">
-                    <a href="{{ route('cursos.create') }}" class="mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded">Crear Curso</a>
+                    <a href="{{ route('cursos.create') }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded">Crear Curso</a>
                 </div>
                 <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
                     @foreach($cursos as $curso)
@@ -22,7 +22,7 @@
                                 </h2>
                             </div>
                             <div class="mt-4 flex space-x-4">
-                                <a href="{{ route('cursos.edit', $curso->id) }}" class="bg-gray-500 text-white py-2 px-4 rounded">Editar</a>
+                                <a href="{{ route('cursos.edit', $curso->id) }}" class="bg-yellow-500 text-white py-2 px-4 rounded">Editar</a>
                                 <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

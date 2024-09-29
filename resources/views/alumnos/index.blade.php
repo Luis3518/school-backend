@@ -8,32 +8,56 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
                 <div class="flex justify-end mb-4">
-                    <a href="{{ route('alumnos.create') }}" class="mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded">Crear Alumno</a>
+                    <a href="{{ route('alumnos.create') }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded">Crear Alumno</a>
                 </div>
 
-                <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
-                    @foreach($alumnos as $alumno)
-                        <div class="bg-white p-6 rounded-lg shadow-md">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-6 h-6 stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                </svg>
-                                <h2 class="ms-3 text-xl font-semibold text-gray-900">
-                                    <a href="{{ route('alumnos.show', $alumno->id) }}">{{ $alumno->nombre }}</a>
-                                </h2>
-                            </div>
-                            <p class="mt-4 text-gray-500 text-sm leading-relaxed">DNI: {{ $alumno->dni }}</p>
-                            <p class="mt-4 text-gray-500 text-sm leading-relaxed">Fecha de Nacimiento: {{ $alumno->fecha_nacimiento }}</p>
-                            <div class="mt-4 flex space-x-4">
-                                <a href="{{ route('alumnos.edit', $alumno->id) }}" class="bg-gray-500 text-white py-2 px-4 rounded">Editar</a>
-                                <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded">Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    @endforeach
+                <!-- Filter Dropdown -->
+                <div class="mb-4">
+                    <form method="GET" action="{{ route('alumnos.index') }}">
+                        <label for="curso" class="block text-sm font-medium text-gray-700">Filtrar por Curso:</label>
+                        <select id="curso" name="curso" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <option value="">Todos los Cursos</option>
+                            @foreach($cursos as $curso)
+                                <option value="{{ $curso->id }}" {{ request('curso') == $curso->id ? 'selected' : '' }}>{{ $curso->nombre }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="mt-2 bg-blue-500 text-white py-2 px-4 rounded">Filtrar</button>
+                    </form>
+                </div>
+
+                <!-- Students Table -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DNI</th>
+                                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Curso</th>
+                                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edad</th>
+                                <th class="py-2 px-4 border-b border-gray-200 bg-gray-50"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($alumnos as $alumno)
+                                <tr>
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ $alumno->nombre }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ $alumno->dni }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ $alumno->curso->nombre ?? 'Sin Curso' }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">
+                                        {{ \Carbon\Carbon::parse($alumno->fecha_nacimiento)->age }}
+                                    </td>
+                                    <td class="py-2 px-4 border-b border-gray-200">
+                                        <a href="{{ route('alumnos.edit', $alumno->id) }}" class="bg-yellow-500 text-white py-1 px-3 rounded">Editar</a>
+                                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -12,10 +12,18 @@ class AlumnoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $alumnos = Alumno::with('curso')->get();
-        return view('alumnos.index', compact('alumnos'));
+        $cursoId = $request->input('curso');
+        $cursos = Curso::all();
+    
+        if ($cursoId) {
+            $alumnos = Alumno::where('curso_id', $cursoId)->get();
+        } else {
+            $alumnos = Alumno::all();
+        }
+    
+        return view('alumnos.index', compact('alumnos', 'cursos'));
     }
 
     /**
