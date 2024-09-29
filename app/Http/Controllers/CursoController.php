@@ -13,7 +13,7 @@ class CursoController extends Controller
     public function index()
     {
         $cursos = Curso::all();
-        return response()->json($cursos);
+        return view('cursos.index', compact('cursos'));
     }
 
     /**
@@ -21,7 +21,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cursos.create');
     }
 
     /**
@@ -30,7 +30,7 @@ class CursoController extends Controller
     public function store(Request $request)
     {
         $curso = Curso::create($request->all());
-        return response()->json($curso, 201);
+        return redirect()->route('cursos.index');
     }
 
     /**
@@ -38,8 +38,7 @@ class CursoController extends Controller
      */
     public function show(Curso $curso)
     {
-        $curso = Curso::findOrFail($id);
-        return response()->json($curso);
+        return view('cursos.show', compact('curso'));
     }
 
     /**
@@ -47,7 +46,7 @@ class CursoController extends Controller
      */
     public function edit(Curso $curso)
     {
-        //
+        return view('cursos.edit', compact('curso'));
     }
 
     /**
@@ -56,8 +55,7 @@ class CursoController extends Controller
     public function update(Request $request, Curso $curso)
     {
         $curso->update($request->all());
-        return response()->json($curso);
-    
+        return redirect()->route('cursos.index');
     }
 
     /**
@@ -66,7 +64,6 @@ class CursoController extends Controller
     public function destroy(Curso $curso)
     {
         $curso->delete();
-        return response()->json(null, 204);
-    
+        return redirect()->route('cursos.index');
     }
 }

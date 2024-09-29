@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Alumno;
 use Illuminate\Http\Request;
+use App\Models\Curso;
+
 
 class AlumnoController extends Controller
 {
@@ -13,8 +15,7 @@ class AlumnoController extends Controller
     public function index()
     {
         $alumnos = Alumno::with('curso')->get();
-        return response()->json($alumnos);
-    
+        return view('alumnos.index', compact('alumnos'));
     }
 
     /**
@@ -22,7 +23,8 @@ class AlumnoController extends Controller
      */
     public function create()
     {
-        //
+        $cursos = Curso::all();
+        return view('alumnos.create', compact('cursos'));
     }
 
     /**
@@ -31,8 +33,7 @@ class AlumnoController extends Controller
     public function store(Request $request)
     {
         $alumno = Alumno::create($request->all());
-        return response()->json($alumno, 201);
-    
+        return redirect()->route('alumnos.index');
     }
 
     /**
@@ -40,9 +41,8 @@ class AlumnoController extends Controller
      */
     public function show(Alumno $alumno)
     {
-        $alumno = Alumno::with('curso')->findOrFail($id);
-        return response()->json($alumno);
-    
+        $alumno = Alumno::with('curso')->findOrFail($alumno->id);
+        return view('alumnos.show', compact('alumno'));
     }
 
     /**
@@ -50,7 +50,8 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        //
+        $cursos = Curso::all();
+        return view('alumnos.edit', compact('alumno', 'cursos'));
     }
 
     /**
@@ -59,8 +60,7 @@ class AlumnoController extends Controller
     public function update(Request $request, Alumno $alumno)
     {
         $alumno->update($request->all());
-        return response()->json($alumno);
-
+        return redirect()->route('alumnos.index');
     }
 
     /**
@@ -69,7 +69,6 @@ class AlumnoController extends Controller
     public function destroy(Alumno $alumno)
     {
         $alumno->delete();
-        return response()->json(null, 204);
-    
+        return redirect()->route('alumnos.index');
     }
 }
