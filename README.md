@@ -32,7 +32,7 @@ php artisan migrate
 Este comando ejecutará las migraciones y creará las tablas necesarias en la base de datos.
 ### 3. Poblar la Base de Datos
 
-Para agregar datos de prueba, puedes ejecutar el comando de seeds:
+Para agregar user test, cursos y alumnos de prueba, puedes ejecutar el comando de seeds:
 
 ```bash
 php artisan db:seed
