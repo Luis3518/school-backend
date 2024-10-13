@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\ReporteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,4 +42,7 @@ Route::middleware([
     Route::get('/alumnos/{alumno}/edit', [AlumnoController::class, 'edit'])->name('alumnos.edit');
     Route::put('/alumnos/{alumno}', [AlumnoController::class, 'update'])->name('alumnos.update');
     Route::delete('/alumnos/{alumno}', [AlumnoController::class, 'destroy'])->name('alumnos.destroy');
+    Route::get('/reportes/pdf', [ReporteController::class, 'generarPDF'])->name('reportes.pdf');
+    Route::get('/reportes/excel', [ReporteController::class, 'generarExcel'])->name('reportes.excel');
+    Route::get('/reportes/imprimir', [ReporteController::class, 'vistaImprimir'])->name('reportes.imprimir');
 });

@@ -35,6 +35,9 @@
                         </button>
                     </div>
                 </div>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">user test: test@test.com</p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">password test: 123456</p>
+
 
                 <div class="block mt-4">
                     <label for="remember_me" class="inline-flex items-center">
