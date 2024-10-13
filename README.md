@@ -56,13 +56,19 @@ npm run build
 ```
 Si más adelante hay problemas con los estilos, volver a ejecutar este comando para recompilar.
 
-### 6. Generar key de la aplicación
+### 6. Generar .env
 
 ```bash
-RUN php artisan key:generate
+cp .env.example .env?
 ```
 
-### 7. Iniciar el Servidor
+### 7. Generar key de la aplicación
+
+```bash
+php artisan key:generate
+```
+
+### 8. Iniciar el Servidor
 
 Inicia el servidor de desarrollo de Laravel con el siguiente comando:
 
