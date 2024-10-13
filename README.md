@@ -4,7 +4,7 @@ Este es el backend del sistema de gestión escolar. A continuación, se detallan
 
 ## Requisitos
 
-- **PHP 7.4 o superior**
+- **PHP 8.1 o superior**
 - **Composer**
 - **Node.js**
 - **NPM**
@@ -56,7 +56,13 @@ npm run build
 ```
 Si más adelante hay problemas con los estilos, volver a ejecutar este comando para recompilar.
 
-### 6. Iniciar el Servidor
+### 6. Generar key de la aplicación
+
+```bash
+RUN php artisan key:generate
+```
+
+### 7. Iniciar el Servidor
 
 Inicia el servidor de desarrollo de Laravel con el siguiente comando:
 
